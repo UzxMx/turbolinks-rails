@@ -21,14 +21,10 @@ module Turbolinks
     end
 
     private
-      def visit_location_with_turbolinks(location, action)
-        visit_options = {
-          action: action.to_s == "advance" ? action : "replace"
-        }
-
+      def visit_location_with_turbolinks(location, options = {})
         script = []
         script << "Turbolinks.clearCache()"
-        script << "Turbolinks.visit(#{location.to_json}, #{visit_options.to_json})"
+        script << "Turbolinks.visit(#{location.to_json}, #{options.to_json})"
 
         self.status = 200
         self.response_body = script.join("\n")

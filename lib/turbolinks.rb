@@ -1,6 +1,5 @@
 require 'turbolinks/version'
 require 'turbolinks/redirection'
-require 'turbolinks/source'
 
 module Turbolinks
   module Controller
@@ -14,7 +13,7 @@ module Turbolinks
   class Engine < ::Rails::Engine
     config.turbolinks = ActiveSupport::OrderedOptions.new
     config.turbolinks.auto_include = true
-    config.assets.paths += [Turbolinks::Source.asset_path] if config.respond_to?(:assets)
+    config.assets.paths += [File.expand_path("../assets/javascripts", __FILE__)] if config.respond_to?(:assets)
 
     initializer :turbolinks do |app|
       ActiveSupport.on_load(:action_controller) do
